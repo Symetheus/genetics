@@ -1,6 +1,6 @@
 #include <iostream>
 
-int main() {
+int it_nil() {
     std::cout << "Hello, les nullos !" << std::endl;
     return 0;
 }

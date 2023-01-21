@@ -6,16 +6,17 @@
 #define GENETICS_SELECTORS_H
 
 #include <stdlib.h>
+#include <time.h>
 
 class Selector {
 };
 
+template<typename T, typename E, int N>
 class ElitismSelector: public Selector {
 
     public:
-        template<typename T, typename E, int N>
-        T* operator()(T data, E evaluator, int length) {
-            T result[N];
+        std::vector<T> operator()(T* data, E evaluator, int length) {
+            std::vector<T> result;
             T temp;
             for(int i = 0; i < length; i++) {
                 for(int j = i; j < length; j++) {
@@ -27,20 +28,23 @@ class ElitismSelector: public Selector {
                 }
             }
 
-            for(int i = 0; i < length; i++) {
-                result[i] = data[i];
+            for(int i = 0; i < N; i++) {
+                result.push_back(data[i]);
             }
             return result;
         }
 
 };
+/*
+std::cout << data[i] << ':' << percent << std::endl;
+std::cout << randResult << std::endl;*/
 
+template<typename T, typename E>
 class NoteSelector: public Selector{
 
     public:
-        template<typename T, typename E>
-        T* operator()(T data, E evaluator, int length) {
-            T result[length];
+        std::vector<T> operator()(T* data, E evaluator, int length) {
+            std::vector<T> result;
             double total = 0.0;
             for(int i = 0; i < length; i++) {
                 total += evaluator(data[i]);
@@ -48,13 +52,12 @@ class NoteSelector: public Selector{
 
             int randResult;
             double percent;
-            int N = 0;
+            srand( (unsigned)time(NULL));
             for(int i = 0; i < length; i++) {
                 randResult = rand() % 100;
                 percent = (evaluator(data[i]) / total) * 100.0;
                 if(randResult < ((int) percent)) {
-                    result[N] = data[i];
-                    N++;
+                    result.push_back(data[i]);
                 }
             }
             return result;
@@ -62,14 +65,16 @@ class NoteSelector: public Selector{
 
 };
 
+template<typename T, typename E>
 class RankSelector: public Selector {
 
     public:
-        template<typename T, typename E>
-        T* operator()(T data, E evaluator, int length) {
-            T result[length];
+        std::vector<T> operator()(T* data, E evaluator, int length) {
+            std::vector<T> result;
             T temp;
+            double total = 0.0;
             for(int i = 0; i < length; i++) {
+                total += ((double) length / (i + 1.0));
                 for(int j = i; j < length; j++) {
                     if(evaluator(data[i]) < evaluator(data[j])) {
                         temp = data[i];
@@ -78,37 +83,36 @@ class RankSelector: public Selector {
                     }
                 }
             }
-
             int randResult;
             double percent;
-            int N = 0;
+            double t = 0.0;
+            srand( (unsigned)time(NULL));
             for(int i = 0; i < length; i++) {
                 randResult = rand() % 100;
-                percent = ((length / i) / length) * 100.0;
+                percent = (((double) length / (i + 1.0))  / total) * 100.0;
                 if(randResult < ((int) percent)) {
-                    result[N] = data[i];
-                    N++;
+                    result.push_back(data[i]);
                 }
             }
             return result;
         }
-
 };
 
+template<typename T, typename E, int M>
 class TournamentSelector: public Selector {
 
     public:
-        template<typename T, typename E, int M>
-        T operator()(T data, E evaluator, int length) {
-            T result[M];
+        T operator()(T* data, E evaluator, int length) {
+            std::vector<T> result;
 
             int nbInserted = 0;
             int randResult;
+            srand((unsigned)time(NULL));
             while(nbInserted < M) {
                 for(int i = 0; i < length; i++) {
                     randResult = rand() % 3;
                     if(randResult == 0) {
-                        result[nbInserted] = data[i];
+                        result.push_back(data[i]);
                         nbInserted++;
                     }
 
@@ -116,7 +120,7 @@ class TournamentSelector: public Selector {
                         break;
                     }
                 }
-            }
+           }
 
             T temp;
             for(int i = 0; i < M; i++) {
