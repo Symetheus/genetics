@@ -7,7 +7,7 @@
 #include "mutation.h"
 
 int testMutationSecretString(){
-    std::string test = "timote coiffeureuuuhh";
+    std::string test = "timote coiffeureuuuh";
     srand( time(nullptr));
     for (int i = 0  ; i < 100; ++i) {
         auto mut = MutationSecretString(test);
