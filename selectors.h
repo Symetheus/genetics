@@ -11,14 +11,12 @@
 template<typename T, typename E>
 class Selector {
 
-public:
-    std::vector<std::vector<T>> solution;
+protected:
+    std::vector<T> solution;
     E evaluator;
 
-    Selector(std::vector<std::vector<T>> solution, E evaluator) {
-        this->solution = solution;
-        this->evaluator = evaluator;
-    }
+public:
+    Selector(std::vector<T> solution, E evaluator): solution(solution), evaluator(evaluator) {    }
 
 };
 
@@ -26,13 +24,13 @@ template<typename T, typename E, int N>
 class ElitismSelector : public Selector<T, E> {
 
 public:
-    ElitismSelector(std::vector<std::vector<T>> solution, E evaluator) : Selector<T, E>(solution, evaluator) {
+    ElitismSelector(std::vector<T> solution, E evaluator) : Selector<T, E>(solution, evaluator) {
 
     }
 
-    std::vector<std::vector<T>> operator()() {
-        std::vector<std::vector<T>> result;
-        std::vector<T> temp;
+    std::vector<T> operator()() {
+        std::vector<T> result;
+        T temp;
         for (int i = 0; i < this->solution.size(); i++) {
             for (int j = i; j < this->solution.size(); j++) {
                 if (this->evaluator(this->solution[i]) < this->evaluator(this->solution[j])) {
@@ -55,12 +53,12 @@ template<typename T, typename E>
 class NoteSelector : public Selector<T, E> {
 
 public:
-    NoteSelector(std::vector<std::vector<T>> solution, E evaluator) : Selector<T, E>(solution, evaluator) {
+    NoteSelector(std::vector<T> solution, E evaluator) : Selector<T, E>(solution, evaluator) {
 
     }
 
-    std::vector<std::vector<T>> operator()() {
-        std::vector<std::vector<T>> result;
+    std::vector<T> operator()() {
+        std::vector<T> result;
         double total = 0.0;
         for (int i = 0; i < this->solution.size(); i++) {
             total += this->evaluator(this->solution[i]);
@@ -85,13 +83,13 @@ template<typename T, typename E>
 class RankSelector : public Selector<T, E> {
 
 public:
-    RankSelector(std::vector<std::vector<T>> solution, E evaluator) : Selector<T, E>(solution, evaluator) {
+    RankSelector(std::vector<T> solution, E evaluator) : Selector<T, E>(solution, evaluator) {
 
     }
 
-    std::vector<std::vector<T>> operator()() {
-        std::vector<std::vector<T>> result;
-        std::vector<T> temp;
+    std::vector<T> operator()() {
+        std::vector<T> result;
+        T temp;
         int size = this->solution.size();
         double total = 0.0;
         for (int i = 0; i < size; i++) {
@@ -123,12 +121,12 @@ template<typename T, typename E, int M>
 class TournamentSelector : public Selector<T, E> {
 
 public:
-    TournamentSelector(std::vector<std::vector<T>> solution, E evaluator) : Selector<T, E>(solution, evaluator) {
+    TournamentSelector(std::vector<T> solution, E evaluator) : Selector<T, E>(solution, evaluator) {
 
     }
 
-    std::vector<std::vector<T>> operator()() {
-        std::vector<std::vector<T>> result;
+    std::vector<T> operator()() {
+        std::vector<T> result;
 
         int nbInserted = 0;
         int randResult;
@@ -147,7 +145,7 @@ public:
             }
         }
 
-        std::vector<T> temp;
+        T temp;
         for (int i = 0; i < M; i++) {
             for (int j = i; j < M; j++) {
                 if (this->evaluator(result[i]) < this->evaluator(result[j])) {

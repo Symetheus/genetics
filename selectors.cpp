@@ -27,7 +27,7 @@ Evaluator evaluator = Evaluator();
 
 
 int exampleNoteSelector() {
-    auto selector = NoteSelector<char, Evaluator>(solution, evaluator);
+    auto selector = NoteSelector<std::vector<char>, Evaluator>(solution, evaluator);
     std::vector<std::vector<char>> results = selector();
     for(const std::vector<char>& result : results) {
         for(char val : result) {
@@ -38,7 +38,7 @@ int exampleNoteSelector() {
 }
 
 int exampleElitismSelector() {
-    auto selector = ElitismSelector<char, Evaluator, 2>(solution, evaluator);
+    auto selector = ElitismSelector<std::vector<char>, Evaluator, 2>(solution, evaluator);
     std::vector<std::vector<char>> results = selector();
     for(const std::vector<char>& result : results) {
         for(char val : result) {
@@ -49,7 +49,7 @@ int exampleElitismSelector() {
 }
 
 int exampleRankSelector() {
-    auto selector = RankSelector<char, Evaluator>(solution, evaluator);
+    auto selector = RankSelector<std::vector<char>, Evaluator>(solution, evaluator);
     std::vector<std::vector<char>> results = selector();
     for(const std::vector<char>& result : results) {
         for(char val : result) {
@@ -60,7 +60,7 @@ int exampleRankSelector() {
 }
 
 int exampleTournamentSelector() {
-    auto selector = TournamentSelector<char, Evaluator, 2>(solution, evaluator);
+    auto selector = TournamentSelector<std::vector<char>, Evaluator, 2>(solution, evaluator);
     std::vector<std::vector<char>> results = selector();
     for(const std::vector<char>& result : results) {
         for(char val : result) {
