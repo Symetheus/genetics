@@ -9,49 +9,64 @@
 class Evaluator {
 
     public:
-        double operator()(char data) {
-            return (int) data;
+        double operator()(std::vector<char> data) {
+            double total = 0.00;
+            for(char val : data) {
+                total += (int) val;
+            }
+            return total;
         }
 
 };
 
-char data [16] = {'n', 'p', 'a', 'b', 'z', 'o', 'm', 'k', 'c', 'v', 'j', 'x', 'i', 'g', 'h', 'y'};
+std::vector<std::vector<char>> solution = {
+        {'n', 'p', 'a', 'b', 'z', 'o', 'm', 'k', 'c', 'v', 'j', 'x', 'i', 'g', 'h', 'y'},
+        {'g', 'p', 'a', 'z', 'z', 'z', 'm', 'k', 'c', 'v', 's', 'x', 'i', 'p', 'h', 'y'},
+        {'t', 'p', 'q', 'b', 'x', 'o', 'm', 's', 'c', 'v', 'j', 'x', 'i', 'g', 'h', 'x'}};
+Evaluator evaluator = Evaluator();
+
 
 int exampleNoteSelector() {
-    auto selector = NoteSelector<char, Evaluator>();
-    Evaluator evaluator = Evaluator();
-    std::vector<char> results = selector(data, evaluator, 16);
-    for(char result : results) {
-        std::cout << result << std::endl;
+    auto selector = NoteSelector<char, Evaluator>(solution, evaluator);
+    std::vector<std::vector<char>> results = selector();
+    for(const std::vector<char>& result : results) {
+        for(char val : result) {
+            std::cout << val << std::endl;
+        }
     }
     return 0;
 }
 
 int exampleElitismSelector() {
-    auto selector = ElitismSelector<char, Evaluator, 8>();
-    Evaluator evaluator = Evaluator();
-    std::vector<char> results = selector(data, evaluator, 16);
-    for(char result : results) {
-        std::cout << result << std::endl;
+    auto selector = ElitismSelector<char, Evaluator, 2>(solution, evaluator);
+    std::vector<std::vector<char>> results = selector();
+    for(const std::vector<char>& result : results) {
+        for(char val : result) {
+            std::cout << val << std::endl;
+        }
     }
     return 0;
 }
 
 int exampleRankSelector() {
-    auto selector = RankSelector<char, Evaluator>();
-    Evaluator evaluator = Evaluator();
-    std::vector<char> results = selector(data, evaluator, 16);
-    for(char result : results) {
-        std::cout << result << std::endl;
+    auto selector = RankSelector<char, Evaluator>(solution, evaluator);
+    std::vector<std::vector<char>> results = selector();
+    for(const std::vector<char>& result : results) {
+        for(char val : result) {
+            std::cout << val << std::endl;
+        }
     }
     return 0;
 }
 
 int exampleTournamentSelector() {
-    auto selector = TournamentSelector<char, Evaluator, 5>();
-    Evaluator evaluator = Evaluator();
-    char result = selector(data, evaluator, 16);
-    std::cout << result << std::endl;
+    auto selector = TournamentSelector<char, Evaluator, 2>(solution, evaluator);
+    std::vector<std::vector<char>> results = selector();
+    for(const std::vector<char>& result : results) {
+        for(char val : result) {
+            std::cout << val << std::endl;
+        }
+    }
     return 0;
 }
 

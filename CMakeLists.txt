@@ -3,4 +3,4 @@ project(genetics)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(genetics main.cpp)
+add_executable(genetics main.cpp selectors.h selectors.cpp)
