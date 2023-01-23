@@ -70,7 +70,7 @@ int exampleTournamentSelector() {
     return 0;
 }
 
-int main() {
+int notmain() {
     std::cout << "============== NOTE SELECTOR ==============" << std::endl;
     exampleNoteSelector();
     std::cout << "============== ELITISM SELECTOR ==============" << std::endl;

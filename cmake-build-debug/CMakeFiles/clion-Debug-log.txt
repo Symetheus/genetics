@@ -1,4 +1,0 @@
-/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Applications/CLion.app/Contents/bin/ninja/mac/ninja -G Ninja -S /Users/timote/Esgi/4MOC/S1/Cpp/genetics -B /Users/timote/Esgi/4MOC/S1/Cpp/genetics/cmake-build-debug
--- Configuring done
--- Generating done
--- Build files have been written to: /Users/timote/Esgi/4MOC/S1/Cpp/genetics/cmake-build-debug
