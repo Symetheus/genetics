@@ -1,4 +1,4 @@
-/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Applications/CLion.app/Contents/bin/ninja/mac/ninja -G Ninja -S /Users/timote/Esgi/4MOC/S1/Cpp/genetics -B /Users/timote/Esgi/4MOC/S1/Cpp/genetics/cmake-build-debug
+"C:\Program Files\JetBrains\CLion 2022.3.1\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" -S "C:\Users\Elsa Firmin\Desktop\ESGI\C++\genetics" -B "C:\Users\Elsa Firmin\Desktop\ESGI\C++\genetics\cmake-build-debug"
 -- Configuring done
 -- Generating done
--- Build files have been written to: /Users/timote/Esgi/4MOC/S1/Cpp/genetics/cmake-build-debug
+-- Build files have been written to: C:/Users/Elsa Firmin/Desktop/ESGI/C++/genetics/cmake-build-debug
