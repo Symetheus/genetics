@@ -3,4 +3,4 @@ project(genetics)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(genetics main.cpp Individual.cpp Individual.h StopCriteria.cpp StopCriteria.h GeneticAlgorithm.cpp GeneticAlgorithm.h)
+add_executable(genetics main.cpp selectors.h selectors.cpp Individual.cpp Individual.h StopCriteria.cpp StopCriteria.h GeneticAlgorithm.cpp GeneticAlgorithm.h)
