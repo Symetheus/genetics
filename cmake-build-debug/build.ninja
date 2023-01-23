@@ -52,6 +52,12 @@ build CMakeFiles/genetics.dir/main.cpp.o: CXX_COMPILER__genetics_Debug /Users/ti
   OBJECT_DIR = CMakeFiles/genetics.dir
   OBJECT_FILE_DIR = CMakeFiles/genetics.dir
 
+build CMakeFiles/genetics.dir/selectors.cpp.o: CXX_COMPILER__genetics_Debug /Users/timote/Esgi/4MOC/S1/Cpp/genetics/selectors.cpp || cmake_object_order_depends_target_genetics
+  DEP_FILE = CMakeFiles/genetics.dir/selectors.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.0.sdk -fcolor-diagnostics -std=gnu++14
+  OBJECT_DIR = CMakeFiles/genetics.dir
+  OBJECT_FILE_DIR = CMakeFiles/genetics.dir
+
 build CMakeFiles/genetics.dir/Individual.cpp.o: CXX_COMPILER__genetics_Debug /Users/timote/Esgi/4MOC/S1/Cpp/genetics/Individual.cpp || cmake_object_order_depends_target_genetics
   DEP_FILE = CMakeFiles/genetics.dir/Individual.cpp.o.d
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.0.sdk -fcolor-diagnostics -std=gnu++14
@@ -78,7 +84,7 @@ build CMakeFiles/genetics.dir/GeneticAlgorithm.cpp.o: CXX_COMPILER__genetics_Deb
 #############################################
 # Link the executable genetics
 
-build genetics: CXX_EXECUTABLE_LINKER__genetics_Debug CMakeFiles/genetics.dir/main.cpp.o CMakeFiles/genetics.dir/Individual.cpp.o CMakeFiles/genetics.dir/StopCriteria.cpp.o CMakeFiles/genetics.dir/GeneticAlgorithm.cpp.o
+build genetics: CXX_EXECUTABLE_LINKER__genetics_Debug CMakeFiles/genetics.dir/main.cpp.o CMakeFiles/genetics.dir/selectors.cpp.o CMakeFiles/genetics.dir/Individual.cpp.o CMakeFiles/genetics.dir/StopCriteria.cpp.o CMakeFiles/genetics.dir/GeneticAlgorithm.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.0.sdk
   OBJECT_DIR = CMakeFiles/genetics.dir
   POST_BUILD = :
