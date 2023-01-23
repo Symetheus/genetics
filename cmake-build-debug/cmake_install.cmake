@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Install script for directory: C:/Users/Elsa Firmin/Desktop/ESGI/C++/genetics
+=======
+# Install script for directory: /Users/lin/ProgrammeC++/4a/genetics
+>>>>>>> f23e152ded02258f5c3ba5fb20600f0c05b14e76
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +49,9 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
+<<<<<<< HEAD
 file(WRITE "C:/Users/Elsa Firmin/Desktop/ESGI/C++/genetics/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+=======
+file(WRITE "/Users/lin/ProgrammeC++/4a/genetics/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+>>>>>>> f23e152ded02258f5c3ba5fb20600f0c05b14e76
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
