@@ -6,15 +6,23 @@
 #define GENETICS_EVALUATOR_H
 
 
-class Evaluator {
+#include <string>
+
+class EvaluatorSecretString {
 private:
-    double note;
+    std::string solution;
+    std::string reference;
 
 public:
-    template<typename T>
-    double evaluate(T &ind, T &reference) {
-        for (int i = 0; i < ind.size(); i++) {
-            if (ind[i] == reference[i]) {
+    EvaluatorSecretString(std::string solution, std::string reference) {
+        this->solution = std::move(solution);
+        this->reference = std::move(reference);
+    }
+
+    double operator()(){
+        double note = 0;
+        for (int i = 0; i < solution.length(); i++) {
+            if (solution[i] == reference[i]) {
                 note++;
             }
         }

@@ -5,6 +5,7 @@
 #ifndef GENETICS_MUTATION_H
 #define GENETICS_MUTATION_H
 #include <vector>
+#include <string>
 
 class MutationSecretString {
 

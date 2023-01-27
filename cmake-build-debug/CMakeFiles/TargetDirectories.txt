@@ -1,9 +1,0 @@
-<<<<<<< HEAD
-C:/Users/Elsa Firmin/Desktop/ESGI/C++/genetics/cmake-build-debug/CMakeFiles/genetics.dir
-C:/Users/Elsa Firmin/Desktop/ESGI/C++/genetics/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/Elsa Firmin/Desktop/ESGI/C++/genetics/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-=======
-/Users/lin/ProgrammeC++/4a/genetics/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/Users/lin/ProgrammeC++/4a/genetics/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/lin/ProgrammeC++/4a/genetics/cmake-build-debug/CMakeFiles/genetics.dir
->>>>>>> f23e152ded02258f5c3ba5fb20600f0c05b14e76
