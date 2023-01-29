@@ -3,6 +3,6 @@ project(genetics)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(genetics  selectors.h selectors.cpp mutation.cpp mutation.h)
+add_executable(genetics  selectors.h selectors.cpp mutation.cpp mutation.h crossover.h crossover.cpp)
 #Individual.cpp Individual.h StopCriteria.cpp StopCriteria.h GeneticAlgorithm.cpp GeneticAlgorithm.h
 #main.cpp
