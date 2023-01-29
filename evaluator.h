@@ -10,19 +10,17 @@
 
 class EvaluatorSecretString {
 private:
-    std::string solution;
     std::string reference;
 
 public:
-    EvaluatorSecretString(std::string solution, std::string reference) {
-        this->solution = std::move(solution);
+    EvaluatorSecretString(std::string reference) {
         this->reference = std::move(reference);
     }
 
-    double operator()(){
+    double operator()(Individual solution){
         double note = 0;
-        for (int i = 0; i < solution.length(); i++) {
-            if (solution[i] == reference[i]) {
+        for (int i = 0; i < solution.genes.length(); i++) {
+            if (solution.genes[i] == reference[i]) {
                 note++;
             }
         }

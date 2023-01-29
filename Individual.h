@@ -7,10 +7,10 @@
 
 #include <string>
 #include <vector>
+#include <iostream>
 
 class Individual {
 private:
-    std::string genes;
     std::string target;
 
     static char generateRandomChar() {
@@ -21,6 +21,10 @@ private:
     }
 
 public:
+    std::string genes;
+
+    Individual() {}
+
     Individual(std::string target) : target(target) {
         // Initialize the individual's genes with random characters
         for (int i = 0; i < target.size(); i++) {
@@ -28,7 +32,6 @@ public:
             genes += randomChar;
         }
     }
-
 };
 
 
@@ -40,5 +43,21 @@ std::vector<Individual> generatePopulation(int populationSize, std::string targe
     return population;
 }
 
+template<typename T, typename G, typename E, typename S, typename C, typename M, typename F>
+T generate(G generator, E evaluator, S selector, C cross, M mutator, F stopCriteria) {
+
+    return generatePopulation(100, "en avant oui oui");
+}
+
+
+void printPopulation(const std::vector<Individual>& population) {
+    std::cout << "============== GENERATE POPULATION ==============" << std::endl;
+    for (const auto& ind: population) {
+        for (char val : ind.genes) {
+            std::cout << val;
+        }
+        std::cout << std::endl;
+    }
+}
 
 #endif //GENETICS_INDIVIDUAL_H

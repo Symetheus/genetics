@@ -5,27 +5,33 @@
 #ifndef GENETICS_STOPCRITERIA_H
 #define GENETICS_STOPCRITERIA_H
 
-
 #include <vector>
 
 class StopCriteria {
+protected:
+    std::vector<double> noteList;
+
 public:
+    StopCriteria(std::vector<double> noteList) : noteList(noteList) {}
+
     virtual bool check() = 0;
+
 };
 
-class TargetFitness : public StopCriteria {
+class GoodEnough : public StopCriteria {
 private:
-    double targetFitness;
-    double currentFitness;
-public:
-    TargetFitness(double targetFitness) : targetFitness(targetFitness), currentFitness(0) {}
+    double noteMax;
 
-    void setCurrentFitness(double fitness) {
-        currentFitness = fitness;
-    }
+public:
+    GoodEnough(std::vector<double> noteList, double noteMax) : StopCriteria(noteList), noteMax(noteMax) {}
 
     bool check() override {
-        return currentFitness >= targetFitness;
+        for (double note : noteList) {
+            if (note >= this->noteMax) {
+                return true;
+            }
+        }
+        return false;
     }
 };
 
@@ -34,7 +40,7 @@ private:
     int maxIterations;
     int currentIteration;
 public:
-    MaxIterations(int maxIterations) : maxIterations(maxIterations), currentIteration(0) {}
+    MaxIterations(std::vector<double> noteList, int maxIterations) : StopCriteria(noteList), maxIterations(maxIterations), currentIteration(0) {}
 
     bool check() override {
         return currentIteration++ >= maxIterations;
@@ -43,24 +49,26 @@ public:
 
 class StableScore : public StopCriteria {
 private:
-    double currentFitness;
-    double lastFitness;
+    double lastEvaluator;
     int stableIterations;
     int maxStableIterations;
 public:
-    StableScore(int maxStableIterations) : maxStableIterations(maxStableIterations), stableIterations(0),
-                                           lastFitness(0) {}
+    StableScore(std::vector<double> noteList, int maxStableIterations) : StopCriteria(noteList),
+                                                        maxStableIterations(maxStableIterations),
+                                                        stableIterations(0) {}
 
-    void setCurrentFitness(double fitness) {
-        if (fitness == lastFitness) {
-            stableIterations++;
-        } else {
-            stableIterations = 0;
-        }
-        lastFitness = fitness;
-    }
 
     bool check() override {
+
+        for (double note : noteList) {
+            if (note == lastEvaluator) {
+                stableIterations++;
+            } else {
+                stableIterations = 0;
+            }
+            lastEvaluator = note;
+        }
+
         return stableIterations >= maxStableIterations;
     }
 };
@@ -69,7 +77,7 @@ class StopCriteriaList : public StopCriteria {
 private:
     std::vector<StopCriteria *> criteriaList;
 public:
-    StopCriteriaList() {}
+    StopCriteriaList(std::vector<double> noteList) : StopCriteria(noteList) {}
 
     void addCriteria(StopCriteria *criteria) {
         criteriaList.push_back(criteria);
