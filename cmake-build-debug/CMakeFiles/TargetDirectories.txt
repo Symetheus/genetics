@@ -1,3 +1,0 @@
-/Users/lin/ProgrammeC++/4a/genetics/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/Users/lin/ProgrammeC++/4a/genetics/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/lin/ProgrammeC++/4a/genetics/cmake-build-debug/CMakeFiles/genetics.dir

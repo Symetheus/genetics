@@ -1,24 +1,11 @@
 #include <iostream>
+#include "evaluator.h"
 
-float evaluator(const std::vector<int> &individual)
-{
-    float sum = 0;
-    for (const auto &value : individual)
-    {
-        sum += value;
-    }
-    return sum;
+int testEvaluatorSecretString(){
+    std::string testSolution = "coucou la famille";
+    std::string testReference = "chucau" ;
+    std::string testReference2 = "coucou la fa";
+    auto eval = EvaluatorSecretString(testReference2);
+    std::cout<<eval(testSolution)<<std::endl;
 }
 
-int evaluate(Individual &ind, string &reference)
-{
-    int fitness = 0;
-    for (int i = 0; i < reference.size(); i++)
-    {
-        if (individual[i] == reference[i])
-        {
-            fitness++;
-        }
-    }
-    return fitness;
-}

@@ -16,7 +16,7 @@ protected:
     E evaluator;
 
 public:
-    Selector(std::vector<T> solution, E evaluator): solution(solution), evaluator(evaluator) {    }
+    Selector(std::vector<T> solution, E evaluator) : solution(solution), evaluator(evaluator) {}
 
 };
 
@@ -24,9 +24,7 @@ template<typename T, typename E, int N>
 class ElitismSelector : public Selector<T, E> {
 
 public:
-    ElitismSelector(std::vector<T> solution, E evaluator) : Selector<T, E>(solution, evaluator) {
-
-    }
+    ElitismSelector(std::vector<T> solution, E evaluator) : Selector<T, E>(solution, evaluator) {}
 
     std::vector<T> operator()() {
         std::vector<T> result;
@@ -156,7 +154,7 @@ public:
             }
         }
 
-        result = {result[0]};
+        result = result[0];
         return result;
     }
 
