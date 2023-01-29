@@ -20,11 +20,13 @@ public:
 
 };
 
-template<typename T, typename E, int N>
+template<typename T, typename E>
 class ElitismSelector : public Selector<T, E> {
+private:
+    int N;
 
 public:
-    ElitismSelector(std::vector<T> solution, E evaluator) : Selector<T, E>(solution, evaluator) {}
+    ElitismSelector(std::vector<T> solution, E evaluator, int N) : Selector<T, E>(solution, evaluator), N(N) {}
 
     std::vector<T> operator()() {
         std::vector<T> result;

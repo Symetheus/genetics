@@ -5,37 +5,35 @@
 #ifndef GENETICS_CROSSOVER_H
 #define GENETICS_CROSSOVER_H
 
-class Crossover{
+#include <vector>
+#include <random>
+
+class Crossover {
 
 private:
-    std::string solution1;
-    std::string solution2;
-    int crossoverRate = 70;
+    Individual solution1;
+    Individual solution2;
+    int crossoverRate;
 
 public:
-    Crossover(std::string solution1, std::string solution2) {
-        this->solution1 = std::move(solution1);
-        this->solution2 = std::move(solution2);
-    };
+    Crossover(Individual solution1, Individual solution2) : solution1(solution1),
+                                                            solution2(solution2),
+                                                            crossoverRate(70) {}
 
-    std::string operator()(){
-        if(rand() % 100 < this->crossoverRate){
-            int sizeMax = 0;
-            if(solution1.length() >= solution2.length()){
-                sizeMax = solution2.length();
-            }else{
-                sizeMax = solution1.length();
-            }
-            std::string res = "";
-            int crossoverPoint = rand() % sizeMax;
-            for(int i = 0; i < sizeMax; i++){
-                if(i >= crossoverPoint){
-                    res+=solution2[i];
-                }else{
-                    res+=solution1[i];
+    Individual operator()() {
+        Individual ind = Individual();
+        int size = solution1.genes.size();
+        int crossoverPoint = rand() % size;
+
+        if (rand() % 100 < this->crossoverRate) {
+            for (int i = 0; i < size; i++) {
+                if (i >= crossoverPoint) {
+                    ind.genes += solution2.genes[i];
+                } else {
+                    ind.genes += solution1.genes[i];
                 }
             }
-            return res;
+            return ind;
         }
         return solution1;
     };

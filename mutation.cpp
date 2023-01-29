@@ -6,12 +6,12 @@
 #include <iostream>
 #include "mutation.h"
 
-int testMutationSecretString(){
+int testMutationSecretString() {
     std::string test = "timote coiffeureuuuh";
-    srand( time(nullptr));
-    for (int i = 0  ; i < 100; ++i) {
+    srand(time(nullptr));
+    for (int i = 0; i < 100; ++i) {
         auto mut = MutationSecretString(test);
-        std::cout<<mut()<<std::endl;
+        std::cout << mut() << std::endl;
     }
 }
 

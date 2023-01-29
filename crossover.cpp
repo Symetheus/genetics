@@ -7,7 +7,7 @@
 #include <iostream>
 #include "crossover.h"
 
-int main(){
+int crossoverMain(){
     std::string test1 = "timote coiffeureuuuh";
     std::string test2 = "bob le testeur";
     srand( time(nullptr));
