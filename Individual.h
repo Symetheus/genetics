@@ -26,7 +26,7 @@ public:
     Individual() {}
 
     Individual(std::string target) : target(target) {
-        // Initialize the individual's genes with random characters
+        // Initialize the Individual's genes with random characters
         for (int i = 0; i < target.size(); i++) {
             char randomChar = generateRandomChar();
             genes += randomChar;
@@ -52,7 +52,7 @@ T generate(G generator, E evaluator, S selector, C cross, M mutator, F stopCrite
 
 void printPopulation(const std::vector<Individual>& population) {
     std::cout << "============== GENERATE POPULATION ==============" << std::endl;
-    for (const auto& ind: population) {
+    for (auto ind: population) {
         for (char val : ind.genes) {
             std::cout << val;
         }

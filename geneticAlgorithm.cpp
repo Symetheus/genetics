@@ -2,4 +2,4 @@
 // Created by Timoté Vannier on 22/01/2023.
 //
 
-#include "StopCriteria.h"
+#include "geneticAlgorithm.h"

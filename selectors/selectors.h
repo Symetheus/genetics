@@ -16,26 +16,23 @@
 
 template<typename T, typename E>
 class Selector {
-
 protected:
-    std::vector<T> solution;
     E evaluator;
 
 public:
-    Selector(std::vector<T> &solution, E evaluator) : solution(solution), evaluator(evaluator) {}
-
+    Selector(E evaluator) : evaluator(evaluator) {}
 };
 
 template<typename T, typename E>
 class Comparator {
 
-    private:
-        E evaluator;
+private:
+    E evaluator;
 
 public:
-    Comparator(E evaluator) : evaluator(evaluator) { }
+    Comparator(E evaluator) : evaluator(evaluator) {}
 
-    bool operator()( const T & i1, const T & i2 ) {
+    bool operator()(const T &i1, const T &i2) {
         return (this->evaluator(i1) > this->evaluator(i2));
     }
 
@@ -43,18 +40,18 @@ public:
 
 template<typename T, typename E>
 class ElitismSelector : public Selector<T, E> {
-
 private:
-    int N;
+    int selectorRate;
 
 public:
-    ElitismSelector(std::vector<T> solution, E evaluator, int N) : Selector<T, E>(solution, evaluator), N(N) {}
+    ElitismSelector(E evaluator, int selectorRate) : Selector<T, E>(evaluator), selectorRate(selectorRate) {}
 
-    std::vector<T> operator()() {
+    std::vector<T> operator()(std::vector<T> &solution) {
         std::vector<T> result;
-        std::sort(this->solution.begin(), this->solution.end(), Comparator<T, E>(this->evaluator));
-        for (int i = 0; i < N; i++) {
-            result.push_back(this->solution[i]);
+        std::sort(solution.begin(), solution.end(), Comparator<T, E>(this->evaluator));
+        int size = (selectorRate / 100) * solution.size();
+        for (int i = 0; i < size; i++) {
+            result.push_back(solution[i]);
         }
         return result;
     }
@@ -63,26 +60,23 @@ public:
 
 template<typename T, typename E>
 class NoteSelector : public Selector<T, E> {
-
 public:
-    NoteSelector(std::vector<T> &solution, E evaluator) : Selector<T, E>(solution, evaluator) {
+    NoteSelector(E evaluator) : Selector<T, E>(evaluator) {}
 
-    }
-
-    std::vector<T> operator()() {
+    std::vector<T> operator()(std::vector<T> &solution) {
         std::vector<T> result;
         double total = 0.0;
-        for (int i = 0; i < this->solution.size(); i++) {
-            total += this->evaluator(this->solution[i]);
+        for (int i = 0; i < solution.size(); i++) {
+            total += this->evaluator(solution[i]);
         }
 
         int randResult;
         double percent;
-        for (int i = 0; i < this->solution.size(); i++) {
+        for (int i = 0; i < solution.size(); i++) {
             randResult = rand() % 100;
-            percent = (this->evaluator(this->solution[i]) / total) * 100.0;
+            percent = (this->evaluator(solution[i]) / total) * 100.0;
             if (randResult < ((int) percent)) {
-                result.push_back(this->solution[i]);
+                result.push_back(solution[i]);
             }
         }
         return result;
@@ -92,18 +86,15 @@ public:
 
 template<typename T, typename E>
 class RankSelector : public Selector<T, E> {
-
 public:
-    RankSelector(std::vector<T> &solution, E evaluator) : Selector<T, E>(solution, evaluator) {
+    RankSelector(E evaluator) : Selector<T, E>(evaluator) {}
 
-    }
-
-    std::vector<T> operator()() {
+    std::vector<T> operator()(std::vector<T> &solution) {
         std::vector<T> result;
         T temp;
-        int size = this->solution.size();
+        int size = solution.size();
 
-        std::sort(this->solution.begin(), this->solution.end(), Comparator<T, E>(this->evaluator));
+        std::sort(solution.begin(), solution.end(), Comparator<T, E>(this->evaluator));
 
         int randResult;
         double percent;
@@ -111,7 +102,7 @@ public:
             randResult = rand() % 100;
             percent = (size - i / size) * 100.0;
             if (randResult < ((int) percent)) {
-                result.push_back(this->solution[i]);
+                result.push_back(solution[i]);
             }
         }
 
@@ -121,29 +112,27 @@ public:
 
 template<typename T, typename E>
 class TournamentSelector : public Selector<T, E> {
-
 private:
-    int M;
+    int selectorRate;
 
 public:
-    TournamentSelector(std::vector<T> &solution, E evaluator, int M) : Selector<T, E>(solution, evaluator), M(M) {
+    TournamentSelector(E evaluator, int selectorRate) : Selector<T, E>(evaluator), selectorRate(selectorRate) {}
 
-    }
-
-    std::vector<T> operator()() {
+    std::vector<T> operator()(std::vector<T> &solution) {
         std::vector<T> result;
 
         int nbInserted = 0;
         int randResult;
-        while (nbInserted < M) {
-            for (int i = 0; i < this->solution.size(); i++) {
+        int size = (selectorRate / 100) * solution.size();
+        while (nbInserted < size) {
+            for (int i = 0; i < solution.size(); i++) {
                 randResult = rand() % 3;
                 if (randResult == 0) {
-                    result.push_back(this->solution[i]);
+                    result.push_back(solution[i]);
                     nbInserted++;
                 }
 
-                if (nbInserted == M) {
+                if (nbInserted == size) {
                     break;
                 }
             }
@@ -151,7 +140,7 @@ public:
 
         std::sort(result.begin(), result.end(), Comparator<T, E>(this->evaluator));
 
-        result = {result[0]};
+        // result = {result[0]};
         return result;
     }
 

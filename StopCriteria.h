@@ -8,13 +8,10 @@
 #include <vector>
 
 class StopCriteria {
-protected:
-    std::vector<double> noteList;
-
 public:
-    StopCriteria(std::vector<double> noteList) : noteList(noteList) {}
+    StopCriteria() {}
 
-    virtual bool check() = 0;
+    virtual bool check(const std::vector<double> &noteList) = 0;
 
 };
 
@@ -23,10 +20,10 @@ private:
     double noteMax;
 
 public:
-    GoodEnough(std::vector<double> noteList, double noteMax) : StopCriteria(noteList), noteMax(noteMax) {}
+    GoodEnough(double noteMax) : StopCriteria(), noteMax(noteMax) {}
 
-    bool check() override {
-        for (double note : noteList) {
+    bool check(const std::vector<double> &noteList) {
+        for (double note: noteList) {
             if (note >= this->noteMax) {
                 return true;
             }
@@ -40,9 +37,9 @@ private:
     int maxIterations;
     int currentIteration;
 public:
-    MaxIterations(std::vector<double> noteList, int maxIterations) : StopCriteria(noteList), maxIterations(maxIterations), currentIteration(0) {}
+    MaxIterations(int maxIterations) : StopCriteria(), maxIterations(maxIterations), currentIteration(0) {}
 
-    bool check() override {
+    bool check(const std::vector<double> &noteList) {
         return currentIteration++ >= maxIterations;
     }
 };
@@ -53,14 +50,13 @@ private:
     int stableIterations;
     int maxStableIterations;
 public:
-    StableScore(std::vector<double> noteList, int maxStableIterations) : StopCriteria(noteList),
-                                                        maxStableIterations(maxStableIterations),
-                                                        stableIterations(0) {}
+    StableScore(int maxStableIterations)
+            : StopCriteria(), maxStableIterations(maxStableIterations), stableIterations(0) {}
 
 
-    bool check() override {
+    bool check(const std::vector<double> &noteList) {
 
-        for (double note : noteList) {
+        for (double note: noteList) {
             if (note == lastEvaluator) {
                 stableIterations++;
             } else {
@@ -77,15 +73,15 @@ class StopCriteriaList : public StopCriteria {
 private:
     std::vector<StopCriteria *> criteriaList;
 public:
-    StopCriteriaList(std::vector<double> noteList) : StopCriteria(noteList) {}
+    StopCriteriaList() : StopCriteria() {}
 
     void addCriteria(StopCriteria *criteria) {
         criteriaList.push_back(criteria);
     }
 
-    bool check() override {
+    bool check(const std::vector<double> &noteList) {
         for (auto criteria: criteriaList) {
-            if (criteria->check()) {
+            if (criteria->check(noteList)) {
                 return true;
             }
         }

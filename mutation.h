@@ -7,17 +7,16 @@
 
 #include <vector>
 #include <string>
-#include "Individual.h"
+#include "individual.h"
 
 class MutationSecretString {
 private:
-    Individual solution;
-    int mutationRate = 10;
+    int mutationRate;
 
 public:
-    MutationSecretString(Individual solution) : solution(solution) {}
+    MutationSecretString(int mutationRate) : mutationRate(mutationRate) {}
 
-    Individual operator()() {
+    Individual operator()(Individual solution) const {
         Individual ind = Individual();
         for (auto s: solution.genes) {
             if (rand() % 100 < this->mutationRate) {

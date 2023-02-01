@@ -8,19 +8,14 @@
 #include <vector>
 #include <random>
 
-class Crossover {
-
+class CrossoverSecretString {
 private:
-    Individual solution1;
-    Individual solution2;
     int crossoverRate;
 
 public:
-    Crossover(Individual solution1, Individual solution2) : solution1(solution1),
-                                                            solution2(solution2),
-                                                            crossoverRate(70) {}
+    CrossoverSecretString(int crossoverRate) : crossoverRate(crossoverRate) {}
 
-    Individual operator()() {
+    Individual operator()(Individual solution1, Individual solution2) const {
         Individual ind = Individual();
         int size = solution1.genes.size();
         int crossoverPoint = rand() % size;

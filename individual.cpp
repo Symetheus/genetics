@@ -2,7 +2,7 @@
 // Created by Timoté Vannier on 22/01/2023.
 //
 
-#include "Individual.h"
+#include "individual.h"
 #include <iostream>
 #include <vector>
 
