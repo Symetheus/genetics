@@ -5,13 +5,13 @@
 #include "Individual.h"
 #include "evaluator.h"
 #include "StopCriteria.h"
-#include "selectors.h"
+#include "selectors/selectors.h"
 #include "crossover.h"
 #include "mutation.h"
 
-const int POPULATION_SIZE = 1000;
+const int POPULATION_SIZE = 100;
 const int MAX_ITERATIONS = 100;
-const std::string TARGET = "Hello";
+const std::string TARGET = "Hello tout le monde !";
 
 
 int main() {
@@ -45,20 +45,26 @@ int main() {
         /// IS GOOD ???
         auto criteria = GoodEnough(list, TARGET.size());
 
-        if (criteria.check() || counter == 30) {
+        if (criteria.check()) {
             ///TODO: printDone();
-            printPopulation(population);
+            //printPopulation(population);
+            int size = (population.size() > 100) ? 100 : population.size();
+
+            for (int i = 0; i < size; i++) {
+                std::cout << population[i].genes << " // note:" << evaluator(population[i]) << std::endl;
+            }
             std::cout << "COUNTER : " << counter << std::endl;
             return 0;
         }
 
         /// 3. Selection
-        // std::cout << "============== SELECTION ==============" << std::endl;
+        //std::cout << "============== SELECTION ==============" << std::endl;
         auto selector = ElitismSelector<Individual, EvaluatorSecretString>(population, evaluator, elitePercent);
         std::vector<Individual> selectedNotes = selector();
         /*for (const Individual &notes: selectedNotes) {
             std::cout << notes.genes << std::endl;
         }*/
+        //std::cout << "============== FIN SELECTION ==============" << std::endl;
 
         /// 4. Crossover
         population.clear();
