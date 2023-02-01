@@ -12,6 +12,7 @@
 #include <random>
 #include <stack>
 #include <tuple>
+#include <chrono>
 
 template<typename T, typename E>
 class Selector {
@@ -19,53 +20,24 @@ class Selector {
 protected:
     std::vector<T> solution;
     E evaluator;
-    std::vector<double> tempNotes;
-
-    int pivotChoice(int first, int end) {
-        return ((end - first) / 2) + first;
-    }
-
-    int partition(int first, int end) {
-        int pivot = pivotChoice(first, end);
-        std::swap(this->solution[pivot], this->solution[end]);
-        std::swap(this->tempNotes[pivot], this->tempNotes[end]);
-        double pivotValue = this->tempNotes[end];
-        int posFinal = first;
-        for(int i = first; i <= end - 1; i++){
-            if(this->tempNotes[i] > pivotValue) {
-                std::swap(this->solution[i], this->solution[posFinal]);
-                std::swap(this->tempNotes[i], this->tempNotes[posFinal]);
-                posFinal += 1;
-            }
-        }
-        std::swap(this->solution[end], this->solution[posFinal]);
-        std::swap(this->tempNotes[end], this->tempNotes[posFinal]);
-        return posFinal;
-    }
-
-    void quickSort(int first, int end)
-    {
-        std::stack<std::pair<int, int>> stack;
-        stack.push({first, end});
-
-        while (!stack.empty()) {
-            auto curr = stack.top();
-            stack.pop();
-
-            int posFinal = partition(curr.first, curr.second);
-
-            if (posFinal > curr.first) {
-                stack.push({curr.first, posFinal - 1});
-            }
-
-            if (posFinal < curr.second) {
-                stack.push({posFinal + 1, curr.second});
-            }
-        }
-    }
 
 public:
     Selector(std::vector<T> &solution, E evaluator) : solution(solution), evaluator(evaluator) {}
+
+};
+
+template<typename T, typename E>
+class Comparator {
+
+    private:
+        E evaluator;
+
+public:
+    Comparator(E evaluator) : evaluator(evaluator) { }
+
+    bool operator()( const T & i1, const T & i2 ) {
+        return (this->evaluator(i1) > this->evaluator(i2));
+    }
 
 };
 
@@ -80,14 +52,7 @@ public:
 
     std::vector<T> operator()() {
         std::vector<T> result;
-
-        // Tri rapide
-        this->tempNotes.clear();
-        for (int i = 0; i < this->solution.size(); i++) {
-            this->tempNotes.push_back(this->evaluator(this->solution[i]));
-        }
-        this->quickSort(0, this->solution.size() - 1);
-
+        std::sort(this->solution.begin(), this->solution.end(), Comparator<T, E>(this->evaluator));
         for (int i = 0; i < N; i++) {
             result.push_back(this->solution[i]);
         }
@@ -138,12 +103,7 @@ public:
         T temp;
         int size = this->solution.size();
 
-        // Tri rapide
-        this->tempNotes.clear();
-        for (int i = 0; i < this->solution.size(); i++) {
-            this->tempNotes.push_back(this->evaluator(this->solution[i]));
-        }
-        this->quickSort(0, this->solution.size() - 1);
+        std::sort(this->solution.begin(), this->solution.end(), Comparator<T, E>(this->evaluator));
 
         int randResult;
         double percent;
@@ -189,16 +149,7 @@ public:
             }
         }
 
-        T temp;
-        for (int i = 0; i < M; i++) {
-            for (int j = i; j < M; j++) {
-                if (this->evaluator(result[i]) < this->evaluator(result[j])) {
-                    temp = result[i];
-                    result[i] = result[j];
-                    result[j] = temp;
-                }
-            }
-        }
+        std::sort(result.begin(), result.end(), Comparator<T, E>(this->evaluator));
 
         result = {result[0]};
         return result;
