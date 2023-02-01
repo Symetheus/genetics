@@ -26,6 +26,8 @@ public:
         }
         return note;
     }
+
+
 };
 
 #endif //GENETICS_EVALUATOR_H

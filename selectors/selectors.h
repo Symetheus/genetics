@@ -13,6 +13,7 @@
 #include <stack>
 #include <tuple>
 #include <chrono>
+#include "../comparator.h"
 
 template<typename T, typename E>
 class Selector {
@@ -23,20 +24,7 @@ public:
     Selector(E evaluator) : evaluator(evaluator) {}
 };
 
-template<typename T, typename E>
-class Comparator {
 
-private:
-    E evaluator;
-
-public:
-    Comparator(E evaluator) : evaluator(evaluator) {}
-
-    bool operator()(const T &i1, const T &i2) {
-        return (this->evaluator(i1) > this->evaluator(i2));
-    }
-
-};
 
 template<typename T, typename E>
 class ElitismSelector : public Selector<T, E> {
@@ -49,7 +37,7 @@ public:
     std::vector<T> operator()(std::vector<T> &solution) {
         std::vector<T> result;
         std::sort(solution.begin(), solution.end(), Comparator<T, E>(this->evaluator));
-        int size = (selectorRate / 100) * solution.size();
+        int size = (selectorRate * solution.size()) / 100;
         for (int i = 0; i < size; i++) {
             result.push_back(solution[i]);
         }
@@ -123,7 +111,7 @@ public:
 
         int nbInserted = 0;
         int randResult;
-        int size = (selectorRate / 100) * solution.size();
+        int size = (selectorRate * solution.size()) / 100;
         while (nbInserted < size) {
             for (int i = 0; i < solution.size(); i++) {
                 randResult = rand() % 3;

@@ -39,7 +39,7 @@ public:
         std::vector<T> population = generator(populationSize);
 
 
-        while (counter < 100) {
+        while (true) {
             // printPopulation(population);
             counter++;
 
@@ -56,19 +56,12 @@ public:
             /// IS GOOD ???
 
             if (stopCriteria.check(noteList)) {
-                int size = (population.size() > 100) ? 100 : population.size();
-
-                for (int i = 0; i < size; i++) {
-                    std::cout << population[i].genes << " // note:" << evaluator(population[i]) << std::endl;
-                }
-                std::cout << "COUNTER : " << counter << std::endl;
-
                 break;
             }
 
             /// 3. Selection
             //std::cout << "============== SELECTION ==============" << std::endl;
-            std::vector<T> selectedNotes = selector(population);
+                       std::vector<T> selectedNotes = selector(population);
 
 
             /// 4. && 5.
@@ -78,7 +71,7 @@ public:
             T mutant;
             for (int i = 0; i < selectedNotes.size() - 1; ++i) {
                 /// 4. Crossover
-                child = crossover(population[i], population[i + 1]);
+                child = crossover(selectedNotes[i], selectedNotes[i + 1]);
 
                 /// 5. Mutation
                 mutant = mutator(child);
@@ -90,8 +83,13 @@ public:
 
         }
 
+        std::sort(population.begin(), population.end(), Comparator<T, E>(this->evaluator));
+        std::cout << "============== POPULATION (LAST FIRST) ==============" << std::endl;
+        for(int i = population.size() - 1; i > population.size() - 20; i--) {
+            std::cout << population[i] << std::endl;
+        }
+        std::cout << "=====================================================" << std::endl;
         std::cout << "Algorithm stopped after " << counter << " iterations" << std::endl;
-
         return population[0];
     }
 };

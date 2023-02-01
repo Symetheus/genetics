@@ -32,6 +32,11 @@ public:
             genes += randomChar;
         }
     }
+
+    friend std::ostream& operator<<(std::ostream& os, const Individual& individual) {
+        return os << individual.genes;
+    }
+
 };
 
 
@@ -51,13 +56,15 @@ T generate(G generator, E evaluator, S selector, C cross, M mutator, F stopCrite
 
 
 void printPopulation(const std::vector<Individual>& population) {
-    std::cout << "============== GENERATE POPULATION ==============" << std::endl;
+    std::cout << "============== POPULATION ==============" << std::endl;
     for (auto ind: population) {
         for (char val : ind.genes) {
             std::cout << val;
         }
         std::cout << std::endl;
     }
+    std::cout << "========================================" << std::endl;
+
 }
 
 #endif //GENETICS_INDIVIDUAL_H

@@ -25,6 +25,7 @@ public:
     bool check(const std::vector<double> &noteList) {
         for (double note: noteList) {
             if (note >= this->noteMax) {
+                std::cout << "Max note found : " << this->noteMax << std::endl;
                 return true;
             }
         }
@@ -40,7 +41,13 @@ public:
     MaxIterations(int maxIterations) : StopCriteria(), maxIterations(maxIterations), currentIteration(0) {}
 
     bool check(const std::vector<double> &noteList) {
-        return currentIteration++ >= maxIterations;
+        currentIteration += 1;
+        if(currentIteration >= maxIterations) {
+            std::cout << "Max iterations : " << this->maxIterations << std::endl;
+            return true;
+        } else {
+            return false;
+        }
     }
 };
 
@@ -65,7 +72,12 @@ public:
             lastEvaluator = note;
         }
 
-        return stableIterations >= maxStableIterations;
+        if(stableIterations >= maxStableIterations) {
+            std::cout << "Max iterations stable : " << this->maxStableIterations << " with last note : " << lastEvaluator << std::endl;
+            return true;
+        } else {
+            return false;
+        }
     }
 };
 
