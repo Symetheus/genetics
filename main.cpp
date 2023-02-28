@@ -4,12 +4,12 @@
 #include "geneticAlgorithm.h"
 
 
-const int POPULATION_SIZE = 500000;
-const int MAX_ITERATIONS = 50;
+const int POPULATION_SIZE = 700000;
+const int MAX_ITERATIONS = 250;
 const int CROSSOVER_RATE = 70;
-const int MUTATION_RATE = 3;
-const int SELECTOR_RATE = 90;
-const std::string TARGET = "William fait dodo";
+const int MUTATION_RATE = 1;
+const int SELECTOR_RATE = 98;
+const std::string TARGET = "William 0/20";
 
 
 int main() {
